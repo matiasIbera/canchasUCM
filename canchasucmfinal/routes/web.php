@@ -139,8 +139,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix'=>'coordinador'],function(){
 	Route::get('/',function(){
-		return view('inicio');
+		return view('coordinador.index');
 	});
+
+	Route::post('/consultafecha','CoordinadorController@consulta_fecha')->name('coordinador.consultafecha');
+	Route::get('/coordinador/otrafecha','CoordinadorController@mostrar_fecha')->name('coordinador.otrafecha');
 });
 
 
