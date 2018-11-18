@@ -139,7 +139,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix'=>'coordinador'],function(){
 	Route::get('/',function(){
-		
+		return view('inicio');
 	});
 });
 
