@@ -143,10 +143,25 @@ Route::group(['prefix'=>'coordinador'],function(){
 	});
 
 	Route::post('/consultafecha','CoordinadorController@consulta_fecha')->name('coordinador.consultafecha');
-	Route::get('/coordinador/otrafecha','CoordinadorController@mostrar_fecha')->name('coordinador.otrafecha');
+	Route::get('/coordinador/otrafecha','CoordinadorController@mostrar_fecha')->name('coordinador.otrafecha');	
 });
 
+Route::group(['prefix' =>'coordinadorT'],function(){
+	Route::get('/',function(){
+		return view('coordinador.indext');
+	});
+	Route::post('/consultafechat','CoordinadorTController@consulta_fecha')->name('coordinadorT.consultafechat');
+	Route::get('coordinadorT/otrafechat','CoordinadorTController@mostrar_fecha')->name('coordinadorT.otrafechat');
+});
 
+Route::group(['prefix' =>'coordinadorB'],function(){
+	Route::get('/',function(){
+		return view('coordinador.indexb');
+	});
+	Route::post('/consultafechab','CoordinadorBController@consulta_fecha')->name('coordinadorB.consultafechab');
+	Route::get('coordinadorB/otrafechab','CoordinadorBController@mostrar_fecha')->name('coordinadorB.otrafechab');
+
+});
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
