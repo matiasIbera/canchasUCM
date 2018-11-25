@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Ver mis reservas</div>
+                <div class="card-header"> <ul><ul> <ul><ul><ul><ul><ul>Ver mis reservas</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -13,10 +13,10 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <ul><ul><ul><ul><ul><ul>
+                    <a  href="{{route('cliente.reserva')}}" class= "btn btn-success"> Fútbol </a>
 
-                    <a  href="{{route('cliente.reserva')}}" class= "btn btn-primary"> Fútbol </a>
-
-                    <a href="{{route('clienteb.reserva')}}" class="btn btn-primary"> Baby</a>
+                    <a href="{{route('clienteb.reserva')}}" class="btn btn-warning"> Baby</a>
 
                     <a href="{{route('clientet.reserva')}}" class="btn btn-primary">Tenis</a>
                     
