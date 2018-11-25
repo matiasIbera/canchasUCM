@@ -92,6 +92,31 @@
 					</ul>
 					</ul>
 					</ul>
+					</ul>
+					<ul>
+					<ul>
+					<ul>
+					<ul>
+					<ul>
+					<ul>
+					<ul>
+					<ul>
+					<ul>
+					<ul>
+					<ul>
+					<ul>
+						<input type="button" class="btn btn-succsess" name="imprimir" value="Imprimir" onclick="window.print();">
+					</ul>
+					</ul>
+					</ul>
+					</ul>
+					</ul>
+					</ul>
+					</ul>
+					</ul>
+					</ul>
+					</ul>
+					</ul>
 					</ul>	
     </div>
 </body>

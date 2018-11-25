@@ -51,6 +51,20 @@ class ReservaController extends Controller
         $problema = false;
         $fecha_reserva = date('Y-m-d', strtotime($request->fecha_reserva));
         $reservas = Reserva::where('fecha_reserva',$fecha_reserva)->get();
+        $hoy = getdate();
+        //dd($hoy['hours']);
+        //dd($reservas);
+        //preguntar si es fecha actual
+        $fecha_actual =(date("Y-m-d",time()));
+        if($fecha_actual > $fecha_reserva){
+            flash::error('Ingrese una fecha valida');
+            return redirect()->route('futbolreservas.index');
+        //} else{
+            //preguntar por la hora
+          //  if($hoy['hours] > $reserva->horario->hora){
+                
+            //}
+        }
 
         //preguntar si es unica
         foreach($reservas as $reserva){
@@ -66,6 +80,92 @@ class ReservaController extends Controller
             $reserva->id_usuario = $request->id_usuario;
             $reserva->id_horario = $request->id_horario;
             $reserva->fecha_reserva = $fecha_reserva;
+            if($fecha_actual == $fecha_reserva){
+                if($reserva->id_horario == 1){
+                    if($hoy['hours'] -3 >= '08'){
+                        flash::error('ingrese una hora valida');
+                        return redirect()->route('futbolreservas.create');
+                    }
+                }
+                if($reserva->id_horario == 2){
+                    if($hoy['hours'] -3 >= '09'){
+                        flash::error('ingrese una hora valida');
+                        return redirect()->route('futbolreservas.create');
+                    }
+                }
+                if($reserva->id_horario == 3){
+                    if($hoy['hours'] -3 >= '10'){
+                        flash::error('ingrese una hora valida');
+                        return redirect()->route('futbolreservas.create');
+                    }
+                }
+                if($reserva->id_horario == 4){
+                    if($hoy['hours'] -3 >= '11'){
+                        flash::error('ingrese una hora valida');
+                        return redirect()->route('futbolreservas.create');
+                    }
+                }
+                if($reserva->id_horario == 5){
+                    if($hoy['hours'] -3 >= '12'){
+                        flash::error('ingrese una hora valida');
+                        return redirect()->route('futbolreservas.create');
+                    }
+                }
+                if($reserva->id_horario == 6){
+                    if($hoy['hours'] -3 >= '13'){
+                        flash::error('ingrese una hora valida');
+                        return redirect()->route('futbolreservas.create');
+                    }
+                }
+                if($reserva->id_horario == 7){
+                    if($hoy['hours'] -3 >= '14'){
+                        flash::error('ingrese una hora valida');
+                        return redirect()->route('futbolreservas.create');
+                    }
+                }
+                if($reserva->id_horario == 8){
+                    if($hoy['hours'] -3 >= '15'){
+                        flash::error('ingrese una hora valida');
+                        return redirect()->route('futbolreservas.create');
+                    }
+                }
+                if($reserva->id_horario == 9){
+                    if($hoy['hours'] -3 >= '16'){
+                        flash::error('ingrese una hora valida');
+                        return redirect()->route('futbolreservas.create');
+                    }
+                }
+                if($reserva->id_horario == 10){
+                    if($hoy['hours'] -3 >= '17'){
+                        flash::error('ingrese una hora valida');
+                        return redirect()->route('futbolreservas.create');
+                    }
+                }
+                if($reserva->id_horario == 11){
+                    if($hoy['hours'] -3 >= '18'){
+                        flash::error('ingrese una hora valida');
+                        return redirect()->route('futbolreservas.create');
+                    }
+                }
+                if($reserva->id_horario == 12){
+                    if($hoy['hours'] -3 >= '19'){
+                        flash::error('ingrese una hora valida');
+                        return redirect()->route('futbolreservas.create');
+                    }
+                }
+                if($reserva->id_horario == 13){
+                    if($hoy['hours'] -3 >= '20'){
+                        flash::error('ingrese una hora valida');
+                        return redirect()->route('futbolreservas.create');
+                    }
+                }
+                if($reserva->id_horario == 14){
+                    if($hoy['hours'] -3 >= '21'){
+                        flash::error('ingrese una hora valida');
+                        return redirect()->route('futbolreservas.create');
+                    }
+                }
+            }
             $reserva->save();
              Flash::success('La reserva ha sido ingresada con éxito');
         }

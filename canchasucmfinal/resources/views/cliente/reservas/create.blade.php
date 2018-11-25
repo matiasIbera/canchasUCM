@@ -19,6 +19,10 @@
 </head>
 <body>
 	@include('cliente.layouts.nav')
+	<div class="panel-body">
+				@include('flash::message')
+				@yield('content')
+			</div>
 	@if(count($errors) > 0)
 		<div class="alert alert-danger" role = "alert">
 			<ul>
@@ -28,7 +32,8 @@
 			</ul>
 		</div>
 	@endif
-	
+
+	<div class = "container">	
 	{!! Form::open(['route' => 'cliente.reserva.store', 'method' => 'POST']) !!}
 
 		<div class="form-group">
@@ -50,6 +55,7 @@
 
 			
 	{!! Form::close() !!}
+	</div>
 
 	<script>
         $(document).ready(function() {

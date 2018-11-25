@@ -19,7 +19,12 @@
 </head>
 <body>
 	@include('cliente.layouts.nav')
-	<h3>Ingrese una fecha para mostrar las reservas de tenis</h3>
+	<div class="panel-body">
+				@include('flash::message')
+				@yield('content')
+			</div>
+	<div class = "container">		
+	<h3><ul><ul><ul><ul><ul><ul>Ingrese una fecha para mostrar las reservas de tenis</h3>
 		{!! Form::open(['route' => 'cliente.guardafechat', 'method' => 'POST']) !!}
 
 		<div class="form-group">
@@ -27,11 +32,13 @@
 			{!! Form::label('nombre', 'Fecha a consultar') !!}
             {!! Form::input('text', 'fecha_reserva', null, ['class' => 'form-control datepicker', 'placeholder' => 'Seleccione un dia', 'required']) !!}
             <br>
+			<ul><ul><ul><ul><ul><ul><ul><ul><ul><ul><ul><ul>
 			 {!! Form::submit('Preguntar', ['class' => 'btn btn-primary']) !!}
 
 		</div>
 
 	{!! Form::close() !!}
+	</div>
 
 	<script>
         $(document).ready(function() {

@@ -22,7 +22,7 @@
 </head>
 <body>
    @include('cliente.layouts.nav')
-   <div class="content">
+   <div class="container">
     <h1> Mis Reservas de Fútbol</h1>
         <table class="table table-hover">
 
@@ -50,8 +50,11 @@
             </tbody>
         </table>
     </div>
+    <div class = "container">
+    <ul><ul><ul><ul><ul><ul><ul><ul><ul><ul>
     <a href="{{route('home')}}" class="btn btn-warning"> Menú principal</a>
     <a href="{{route('cliente.mostrar')}}" class="btn btn-success"> Reservar</a>
+    </div>
 </body>
 </html>
 

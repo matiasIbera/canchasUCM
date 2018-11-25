@@ -62,7 +62,7 @@
 	                    <th scope="row">{{$reserva->user->email}}</th>
 	                    <th scope="row"> {{$reserva->user->carrera->nombre}}</th>
 	                    <td>{{ $reserva->fecha_reserva }}</td>
-	                    <td>{{ $reserva->horario->hora }}</td>               
+	                    <td>{{ $reserva->horariobaby->hora }}</td>               
 	                    </tr>      
 	                @endforeach
                 
@@ -93,6 +93,31 @@
 					</ul>
 					</ul>
 					</ul>	
+					<ul>
+					<ul>
+					<ul>
+					<ul>
+					<ul>
+					<ul>
+					<ul>
+					<ul>
+					<ul>
+					<ul>
+					<ul>
+					<ul>
+						<input type="button" class="btn btn-succsess" name="imprimir" value="Imprimir" onclick="window.print();">
+					</ul>
+					</ul>
+					</ul>
+					</ul>
+					</ul>
+					</ul>
+					</ul>
+					</ul>
+					</ul>
+					</ul>
+					</ul>
+					</ul>
     </div>
 </body>
 </html>
