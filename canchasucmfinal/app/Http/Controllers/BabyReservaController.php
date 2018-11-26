@@ -218,16 +218,27 @@ class BabyReservaController extends Controller
     public function update(Request $request, $id)
     {
         $fecha_reserva = date('Y-m-d', strtotime($request->fecha_reserva));
-
+        $reservas = BabyReserva::where('fecha_reserva',$fecha_reserva)->get();
         $reserva = BabyReserva::find($id);
+        $problema = false;
+        //preguntar si es unica
+        foreach($reservas as $reserva){
+            if($reserva->id_horario == $request->id_horario){
+                $problema=true;
+                Flash::error('La reserva ya existe');
+                break;
+            }
+        }
+        if($problema ==false){
+            $reserva->id_usuario = $request->id_usuario;
+            $reserva->id_horario = $request->id_horario;
+            $reserva->fecha_reserva = $fecha_reserva;
+            
+            $reserva->save();
+    
+            flash::warning('La reserva ha sido modificada');
+        }
         
-        $reserva->id_usuario = $request->id_usuario;
-        $reserva->id_horario = $request->id_horario;
-        $reserva->fecha_reserva = $fecha_reserva;
-        
-        $reserva->save();
-
-        flash::warning('La reserva ha sido modificada');
         return redirect()->route('babyreservas.index');
     }
 
