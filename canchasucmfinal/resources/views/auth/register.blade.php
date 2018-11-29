@@ -47,11 +47,15 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="carrera_id" class="col-md-4 col-form-label text-md-right">{{ __('Carrera') }}</label>
+                            <label for="carrera_id" class="col-md-4 col-form-label text-md-right">{{__('Carrera')}}</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id ="carrera_id" name="carrera_id" required>
+                            <?php $carreras = []; foreach( App\Carrera::all() as $carrera ){ $carreras[$carrera->id] = $carrera->nombre; } ?>
+
+                            {!! Form::label('carrera_id',' ') !!}
+                            {!! Form::select('carrera_id',$carreras, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una carrera', 'required']) !!}
+
                             </div>
-                        </div>
+                        </div> 
 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>

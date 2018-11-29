@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Reserva de baby futbol</title>
+	<title>Reserva de futbol</title>
 		<!-- Bootstrap -->
 	<link rel="stylesheet" type="text/css"  href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
 	<!-- Fa-fa-icons -->

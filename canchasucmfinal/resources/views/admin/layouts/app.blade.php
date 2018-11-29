@@ -1,51 +1,32 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="{{route('admin.principal')}}">Inicio <span class="sr-only">(current)</span></a>
-      </li>
+<nav class="navbar navbar-expand-md">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    {{ __('Inicio')}}
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav mr-auto">
 
-      <!-- CARRERAS --> 
+                    </ul>
 
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ route('carreras.index')}}">Carreras <span class="sr-only">(current)</span></a>
-      </li>
-      <!-- Usuarios--> 
-
-
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ route('usuarios.index') }}">Usuarios <span class="sr-only">(current)</span></a>
-      </li>
-
-
-
-      <!-- CANCHAS --> 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Canchas
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="{{ route('futbolhorarios.index')}}">Futbol</a>
-          <a class="dropdown-item" href="{{ route('babyhorarios.index')}}">Baby</a>
-          <a class="dropdown-item" href="{{route('tenishorarios.index')}}">Tenis</a>
-        </div>
-      </li>
-
-            <!-- RESERVAS --> 
-      
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Reservas
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="{{ route('futbolreservas.index')}}">Futbol</a>
-          <a class="dropdown-item" href="{{ route('babyreservas.index')}}">Baby</a>
-          <a class="dropdown-item" href="{{route('tenisreservas.index')}}">Tenis</a>
-        </div>
-      </li>
-      <ul><ul><ul><ul><ul><ul><ul><ul><ul><ul><ul><ul><ul><ul><ul><ul><ul><ul><ul><ul><ul>
-      <li class="nav-item dropdown">
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Authentication Links -->
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                @if (Route::has('register'))
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                @endif
+                            </li>
+                        @else
+                            <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
@@ -79,7 +60,7 @@
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         
-                                        onclick="event.preventDefault(); return confirm('¿Quiere cerrar sesión?')&&document.getElementById('logout-form').submit();">
+                                        onclick="event.preventDefault(); return confirm('¿Quieres cerrar sesión?')&&document.getElementById('logout-form').submit();">
                                         {{ __('Cerrar Sesion') }}
                                     </a>
 
@@ -88,10 +69,8 @@
                                     </form>
                                 </div>
                             </li>
-
-      
-
-    </ul>
-  </div>
-</nav>
-</nav>
+                        @endguest
+                    </ul>
+                </div>
+            </div>
+        </nav>

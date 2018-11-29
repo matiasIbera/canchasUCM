@@ -136,11 +136,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 		Route::get('perfil','UsuarioController@perfil')->name('cliente.perfil');
 
 });
-
+// RUTAS DE LOS COORDINADORES
 Route::group(['prefix'=>'coordinador'],function(){
 	Route::get('/',function(){
 		return view('coordinador.index');
-	});
+	})->name('coordinador');
 
 	Route::post('/consultafecha','CoordinadorController@consulta_fecha')->name('coordinador.consultafecha');
 	Route::get('/coordinador/otrafecha','CoordinadorController@mostrar_fecha')->name('coordinador.otrafecha');	
@@ -149,7 +149,7 @@ Route::group(['prefix'=>'coordinador'],function(){
 Route::group(['prefix' =>'coordinadorT'],function(){
 	Route::get('/',function(){
 		return view('coordinador.indext');
-	});
+	})->name('coordinadorT');
 	Route::post('/consultafechat','CoordinadorTController@consulta_fecha')->name('coordinadorT.consultafechat');
 	Route::get('coordinadorT/otrafechat','CoordinadorTController@mostrar_fecha')->name('coordinadorT.otrafechat');
 });
@@ -157,7 +157,7 @@ Route::group(['prefix' =>'coordinadorT'],function(){
 Route::group(['prefix' =>'coordinadorB'],function(){
 	Route::get('/',function(){
 		return view('coordinador.indexb');
-	});
+	})->name('coordinadorB');
 	Route::post('/consultafechab','CoordinadorBController@consulta_fecha')->name('coordinadorB.consultafechab');
 	Route::get('coordinadorB/otrafechab','CoordinadorBController@mostrar_fecha')->name('coordinadorB.otrafechab');
 

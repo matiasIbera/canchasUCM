@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ __('Mis reservas') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -21,11 +21,12 @@
 
 </head>
 <body>
+   
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        <nav class="navbar navbar-expand-md">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ __('Inicio') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -56,10 +57,23 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @if(Auth::user()->type=="admin")
+                                    <a class="dropdown-item" href="{{route('home')}}"> <!-- esta funcion permite al usuario ir a la vista de administrador si es que lo es -->
+                                        {{ __('Vista de Cliente') }}
+                                    </a>
+                                    @endif
+                                    @if(Auth::user()->type=="admin")
+                                    <a class="dropdown-item" href="{{route('admin.principal')}}"> <!-- esta funcion permite al usuario ir a la vista de administrador si es que lo es -->
+                                        {{ __('Vista de Administrador') }}
+                                    </a>
+                                    @endif
+                                    <a class="dropdown-item" href="{{ route('usuarios.edit', $id=auth::id()) }}"> <!-- esta funcion permite al usuario ir a la vista para editar los datos de su perfil -->
+                                        {{ __('Editar Perfil') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        
+                                        onclick="event.preventDefault(); return confirm('¿Quiere cerrar sesión?')&&document.getElementById('logout-form').submit();">
+                                        {{ __('Cerrar Sesion') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

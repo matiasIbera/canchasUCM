@@ -18,7 +18,7 @@
 	<script src="{{asset('datePicker/locales/bootstrap-datepicker.es.min.js')}}"></script>
 </head>
 <body>
-
+@include('admin.layouts.app')
   <br>
 		<div class="container">
 			<ul>
