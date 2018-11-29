@@ -17,7 +17,7 @@ class TenisReservaController extends Controller
      */
     public function index()
     {
-        $reservas = TenisReserva::orderBy('id','ASC')->paginate(5);
+        $reservas = TenisReserva::orderBy('fecha_reserva','ASC')->paginate(5);
         $reservas->each(function($reservas){
             $reservas->usuarioid_usuario;
             
@@ -69,99 +69,120 @@ class TenisReservaController extends Controller
 
         //preguntar si es unica
         foreach($reservas as $reserva){
-            if($reserva->id_horario == $request->id_horario){
+            if($reserva->id_horario1 == $request->id_horario1){
                 $problema=true;
                  Flash::error('La reserva ya existe');
                 break;
+            }else{
+                if($reserva->id_horario2 > $request->id_horario1){
+                    $problema=true;
+                    Flash::error('La reserva ya existe');
+                    break;
+                } else{
+                    $problema = false;
+                }
             }
         }
                
         if($problema == false){
             $reserva = new TenisReserva();
             $reserva->id_usuario = $request->id_usuario;
-            $reserva->id_horario = $request->id_horario;
+            $reserva->id_horario1 = $request->id_horario1;
+            $reserva->id_horario2 = $request->id_horario2;
             $reserva->fecha_reserva = $fecha_reserva;
+
+            //validador de que el horario fin tiene que ser mayor al horario inicial
+            if($reserva->id_horario1 == $reserva->id_horario2){
+                flash::error('La hora fin debe ser superior a la hora inicio');
+                return redirect()->route('babyreservas.create');
+            } else{
+                if($reserva->id_horario1 > $reserva->id_horario2){
+                    flash::error('La hora fin debe ser superior a la hora inicio');
+                    return redirect()->route('babyreservas.create');
+                }
+            }
+
             //si la fecha es actual es igual a la de reserva debe ser una hora superior a la actual
             if($fecha_actual == $fecha_reserva){
-                if($reserva->id_horario == 1){
+                if($reserva->id_horario1 == 1){
                     if($hoy['hours'] -3 >= '08'){
                         flash::error('ingrese una hora valida');
                         return redirect()->route('tenisreservas.create');
                     }
                 }
-                if($reserva->id_horario == 2){
+                if($reserva->id_horario1 == 2){
                     if($hoy['hours'] -3 >= '09'){
                         flash::error('ingrese una hora valida');
                         return redirect()->route('tenisreservas.create');
                     }
                 }
-                if($reserva->id_horario == 3){
+                if($reserva->id_horario1 == 3){
                     if($hoy['hours'] -3 >= '10'){
                         flash::error('ingrese una hora valida');
                         return redirect()->route('tenisreservas.create');
                     }
                 }
-                if($reserva->id_horario == 4){
+                if($reserva->id_horario1 == 4){
                     if($hoy['hours'] -3 >= '11'){
                         flash::error('ingrese una hora valida');
                         return redirect()->route('tenisreservas.create');
                     }
                 }
-                if($reserva->id_horario == 5){
+                if($reserva->id_horario1 == 5){
                     if($hoy['hours'] -3 >= '12'){
                         flash::error('ingrese una hora valida');
                         return redirect()->route('tenisreservas.create');
                     }
                 }
-                if($reserva->id_horario == 6){
+                if($reserva->id_horario1 == 6){
                     if($hoy['hours'] -3 >= '13'){
                         flash::error('ingrese una hora valida');
                         return redirect()->route('tenisreservas.create');
                     }
                 }
-                if($reserva->id_horario == 7){
+                if($reserva->id_horario1 == 7){
                     if($hoy['hours'] -3 >= '14'){
                         flash::error('ingrese una hora valida');
                         return redirect()->route('tenisreservas.create');
                     }
                 }
-                if($reserva->id_horario == 8){
+                if($reserva->id_horario1 == 8){
                     if($hoy['hours'] -3 >= '15'){
                         flash::error('ingrese una hora valida');
                         return redirect()->route('tenisreservas.create');
                     }
                 }
-                if($reserva->id_horario == 9){
+                if($reserva->id_horario1 == 9){
                     if($hoy['hours'] -3 >= '16'){
                         flash::error('ingrese una hora valida');
                         return redirect()->route('tenisreservas.create');
                     }
                 }
-                if($reserva->id_horario == 10){
+                if($reserva->id_horario1 == 10){
                     if($hoy['hours'] -3 >= '17'){
                         flash::error('ingrese una hora valida');
                         return redirect()->route('tenisreservas.create');
                     }
                 }
-                if($reserva->id_horario == 11){
+                if($reserva->id_horario1 == 11){
                     if($hoy['hours'] -3 >= '18'){
                         flash::error('ingrese una hora valida');
                         return redirect()->route('tenisreservas.create');
                     }
                 }
-                if($reserva->id_horario == 12){
+                if($reserva->id_horario1 == 12){
                     if($hoy['hours'] -3 >= '19'){
                         flash::error('ingrese una hora valida');
                         return redirect()->route('tenisreservas.create');
                     }
                 }
-                if($reserva->id_horario == 13){
+                if($reserva->id_horario1 == 13){
                     if($hoy['hours'] -3 >= '20'){
                         flash::error('ingrese una hora valida');
                         return redirect()->route('tenisreservas.create');
                     }
                 }
-                if($reserva->id_horario == 14){
+                if($reserva->id_horario1 == 14){
                     if($hoy['hours'] -3 >= '21'){
                         flash::error('ingrese una hora valida');
                         return redirect()->route('tenisreservas.create');
@@ -220,19 +241,125 @@ class TenisReservaController extends Controller
         $fecha_reserva = date('Y-m-d', strtotime($request->fecha_reserva));
         $reservas = TenisReserva::where('fecha_reserva',$fecha_reserva)->get();
         $reserva = TenisReserva::find($id);
+        $problema = false;
+        $fecha_actual =(date("Y-m-d",time()));
         //preguntar si es unica
         foreach($reservas as $reserva){
-            if($reserva->id_horario == $request->id_horario){
-                $problema=true;
-                Flash::error('La reserva ya existe');
-                break;
+            if($reserva->id_horario1 == $request->id_horario1){
+                if($reserva->id_horario2 ==$request->id_horario2){
+                    $problema=true;
+                    Flash::error('La reserva ya existe');
+                    break;
+                }
             }
         }
+
+
         if($problema ==false){
             $reserva->id_usuario = $request->id_usuario;
-            $reserva->id_horario = $request->id_horario;
+            $reserva->id_horario1 = $request->id_horario1;
+            $reserva->id_horario2 = $request->id_horario2;
             $reserva->fecha_reserva = $fecha_reserva;
             
+             //validador de que el horario fin tiene que ser mayor al horario inicial
+             if($reserva->id_horario1 == $reserva->id_horario2){
+                flash::error('La hora fin debe ser superior a la hora inicio');
+                return redirect()->route('tenisreservas.index');
+            } else{
+                if($reserva->id_horario1 > $reserva->id_horario2){
+                    flash::error('La hora fin debe ser superior a la hora inicio');
+                    return redirect()->route('tenisreservas.index');
+                }
+            }
+
+            // validador de horarios superiores al que se encuentran
+            if($fecha_actual == $fecha_reserva){
+                if($reserva->id_horario1 == 1){
+                    if($hoy['hours'] -3 >= '08'){
+                        flash::error('ingrese una hora mayor a la actual');
+                        return redirect()->route('tenisreservas.index');
+                    }
+                }
+                if($reserva->id_horario1 == 2){
+                    if($hoy['hours'] -3 >= '09'){
+                        flash::error('ingrese una hora mayor a la actual');
+                        return redirect()->route('tenisreservas.index');
+                    }
+                }
+                if($reserva->id_horario1 == 3){
+                    if($hoy['hours'] -3 >= '10'){
+                        flash::error('ingrese una hora mayor a la actual');
+                        return redirect()->route('tenisreservas.index');
+                    }
+                }
+                if($reserva->id_horario1 == 4){
+                    if($hoy['hours'] -3 >= '11'){
+                        flash::error('ingrese una hora mayor a la actual');
+                        return redirect()->route('tenisreservas.index');
+                    }
+                }
+                if($reserva->id_horario1 == 5){
+                    if($hoy['hours'] -3 >= '12'){
+                        flash::error('ingrese una hora mayor a la actual');
+                        return redirect()->route('tenisreservas.index');
+                    }
+                }
+                if($reserva->id_horario1 == 6){
+                    if($hoy['hours'] -3 >= '13'){
+                        flash::error('ingrese una hora mayor a la actual');
+                        return redirect()->route('tenisreservas.index');
+                    }
+                }
+                if($reserva->id_horario1 == 7){
+                    if($hoy['hours'] -3 >= '14'){
+                        flash::error('ingrese una hora mayor a la actual');
+                        return redirect()->route('tenisreservas.index');
+                    }
+                }
+                if($reserva->id_horario1 == 8){
+                    if($hoy['hours'] -3 >= '15'){
+                        flash::error('ingrese una hora mayor a la actual');
+                        return redirect()->route('tenisreservas.index');
+                    }
+                }
+                if($reserva->id_horario1 == 9){
+                    if($hoy['hours'] -3 >= '16'){
+                        flash::error('ingrese una hora mayor a la actual');
+                        return redirect()->route('tenisreservas.index');
+                    }
+                }
+                if($reserva->id_horario1 == 10){
+                    if($hoy['hours'] -3 >= '17'){
+                        flash::error('ingrese una hora mayor a la actual');
+                        return redirect()->route('tenisreservas.index');
+                    }
+                }
+                if($reserva->id_horario1 == 11){
+                    if($hoy['hours'] -3 >= '18'){
+                        flash::error('ingrese una hora mayor a la actual');
+                        return redirect()->route('tenisreservas.index');
+                    }
+                }
+                if($reserva->id_horario1 == 12){
+                    if($hoy['hours'] -3 >= '19'){
+                        flash::error('ingrese una hora mayor a la actual');
+                        return redirect()->route('tenisreservas.index');
+                    }
+                }
+                if($reserva->id_horario1 == 13){
+                    if($hoy['hours'] -3 >= '20'){
+                        flash::error('ingrese una hora mayor a la actual');
+                        return redirect()->route('tenisreservas.index');
+                    }
+                }
+                if($reserva->id_horario1 == 14){
+                    if($hoy['hours'] -3 >= '21'){
+                        flash::error('ingrese una hora mayor a la actual');
+                        return redirect()->route('tenisreservas.index');
+                    }
+                }
+            }
+
             $reserva->save();
     
             flash::warning('La reserva ha sido modificada');

@@ -17,6 +17,11 @@ class HorarioBaby extends Model
     {
     	return $this->hasMany('App\BabyReserva');
     }
+
+    public function Babyreservas2()
+    {
+        return $this->hasMany('App\BabyReserva');
+    }
 }
 
 

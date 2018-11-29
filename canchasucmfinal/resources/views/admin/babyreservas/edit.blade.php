@@ -12,7 +12,10 @@
 				<br>
 
 			{!! Form::label('hora','Hora') !!}
-			{!! Form::select('id_horario', $horarios, $reserva->id_horario, ['class' => 'form-control', 'placeholder' => 'Seleccione un usuario', 'required']) !!}
+			{!! Form::select('id_horario1', $horarios, $reserva->id_horario1, ['class' => 'form-control', 'placeholder' => 'Seleccione un usuario', 'required']) !!}
+				<br>
+			{!! Form::label('hora','Hora') !!}
+			{!! Form::select('id_horario2', $horarios, $reserva->id_horario2, ['class' => 'form-control', 'placeholder' => 'Seleccione un usuario', 'required']) !!}
 				<br>
 
 			{!! Form::label('nombre', 'Fecha de reserva') !!}

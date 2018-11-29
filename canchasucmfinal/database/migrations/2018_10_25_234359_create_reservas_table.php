@@ -16,12 +16,14 @@ class CreateReservasTable extends Migration
         Schema::create('reservas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_usuario')->unsigned();
-            $table->integer('id_horario')->unsigned();
+            $table->integer('id_horario1')->unsigned();
+            $table->integer('id_horario2')->unsigned();
             $table->date('fecha_reserva');
             $table->timestamps();
 
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('id_horario')->references('id')->on('horarios')->onDelete('cascade');
+            $table->foreign('id_horario1')->references('id')->on('horarios')->onDelete('cascade');
+            $table->foreign('id_horario2')->references('id')->on('horarios')->onDelete('cascade');
         });
     }
 

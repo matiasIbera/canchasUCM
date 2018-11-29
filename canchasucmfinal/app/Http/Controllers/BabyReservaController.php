@@ -17,7 +17,7 @@ class BabyReservaController extends Controller
      */
     public function index()
     {
-        $reservas = BabyReserva::orderBy('id','ASC')->paginate(5);
+        $reservas = BabyReserva::orderBy('fecha_reserva','ASC')->paginate(5);
 
 
         return view('admin.babyreservas.index')
@@ -53,17 +53,9 @@ class BabyReservaController extends Controller
         $fecha_reserva = date('Y-m-d', strtotime($request->fecha_reserva));
         $reservas = BabyReserva::where('fecha_reserva',$fecha_reserva)->get();
         $hoy = getdate();
-
-         //funcion para que las fechas sean actuales
-        //dd('segundo reserva:'.time($fecha_reserva).'- segundo actual:'.time());
-        //if(time($fecha_reserva) < time()){
-          //  $problema=true;
-            //Flash::error('La fecha no es actual');
-            //redirect()->route('babyreservas.index');
-        //}
         $fecha_actual =(date("Y-m-d",time()));
-        //dd($fecha_reserva);
-        //dd($fecha_actual, $fecha_reserva);
+
+        //validacion de fecha superior a la actual
         if($fecha_actual > $fecha_reserva){
             flash::error('Ingrese una fecha valida');
             return redirect()->route('babyreservas.index');
@@ -71,10 +63,18 @@ class BabyReservaController extends Controller
 
         //preguntar si es unica
         foreach($reservas as $reserva){
-            if($reserva->id_horario == $request->id_horario){
+            if($reserva->id_horario1 == $request->id_horario1){
                 $problema=true;
                 Flash::error('La reserva ya existe');
                 break;
+            } else{
+                if($reserva->id_horario2 > $request->id_horario1){
+                    $problema=true;
+                    Flash::error('La reserva ya existe');
+                    break;
+                } else{
+                    $problema = false;
+                }
             }
         }
 
@@ -83,91 +83,104 @@ class BabyReservaController extends Controller
         if($problema == false){
             $reserva = new BabyReserva();
             $reserva->id_usuario = $request->id_usuario;
-            $reserva->id_horario = $request->id_horario;
+            $reserva->id_horario1 = $request->id_horario1;
+            $reserva->id_horario2 = $request->id_horario2;
             $reserva->fecha_reserva = $fecha_reserva;
-            //
+            
+            //validador de que el horario fin tiene que ser mayor al horario inicial
+            if($reserva->id_horario1 == $reserva->id_horario2){
+                flash::error('La hora fin debe ser superior a la hora inicio');
+                return redirect()->route('babyreservas.create');
+            } else{
+                if($reserva->id_horario1 > $reserva->id_horario2){
+                    flash::error('La hora fin debe ser superior a la hora inicio');
+                    return redirect()->route('babyreservas.create');
+                }
+            }
+
+            // validador de horarios superiores al que se encuentran
             if($fecha_actual == $fecha_reserva){
-                if($reserva->id_horario == 1){
+                if($reserva->id_horario1 == 1){
                     if($hoy['hours'] -3 >= '08'){
-                        flash::error('ingrese una hora valida');
+                        flash::error('ingrese una hora mayor a la actual');
                         return redirect()->route('babyreservas.create');
                     }
                 }
-                if($reserva->id_horario == 2){
+                if($reserva->id_horario1 == 2){
                     if($hoy['hours'] -3 >= '09'){
-                        flash::error('ingrese una hora valida');
+                        flash::error('ingrese una hora mayor a la actual');
                         return redirect()->route('babyreservas.create');
                     }
                 }
-                if($reserva->id_horario == 3){
+                if($reserva->id_horario1 == 3){
                     if($hoy['hours'] -3 >= '10'){
-                        flash::error('ingrese una hora valida');
+                        flash::error('ingrese una hora mayor a la actual');
                         return redirect()->route('babyreservas.create');
                     }
                 }
-                if($reserva->id_horario == 4){
+                if($reserva->id_horario1 == 4){
                     if($hoy['hours'] -3 >= '11'){
-                        flash::error('ingrese una hora valida');
+                        flash::error('ingrese una hora mayor a la actual');
                         return redirect()->route('babyreservas.create');
                     }
                 }
-                if($reserva->id_horario == 5){
+                if($reserva->id_horario1 == 5){
                     if($hoy['hours'] -3 >= '12'){
-                        flash::error('ingrese una hora valida');
+                        flash::error('ingrese una hora mayor a la actual');
                         return redirect()->route('babyreservas.create');
                     }
                 }
-                if($reserva->id_horario == 6){
+                if($reserva->id_horario1 == 6){
                     if($hoy['hours'] -3 >= '13'){
-                        flash::error('ingrese una hora valida');
+                        flash::error('ingrese una hora mayor a la actual');
                         return redirect()->route('babyreservas.create');
                     }
                 }
-                if($reserva->id_horario == 7){
+                if($reserva->id_horario1 == 7){
                     if($hoy['hours'] -3 >= '14'){
-                        flash::error('ingrese una hora valida');
+                        flash::error('ingrese una hora mayor a la actual');
                         return redirect()->route('babyreservas.create');
                     }
                 }
-                if($reserva->id_horario == 8){
+                if($reserva->id_horario1 == 8){
                     if($hoy['hours'] -3 >= '15'){
-                        flash::error('ingrese una hora valida');
+                        flash::error('ingrese una hora mayor a la actual');
                         return redirect()->route('babyreservas.create');
                     }
                 }
-                if($reserva->id_horario == 9){
+                if($reserva->id_horario1 == 9){
                     if($hoy['hours'] -3 >= '16'){
-                        flash::error('ingrese una hora valida');
+                        flash::error('ingrese una hora mayor a la actual');
                         return redirect()->route('babyreservas.create');
                     }
                 }
-                if($reserva->id_horario == 10){
+                if($reserva->id_horario1 == 10){
                     if($hoy['hours'] -3 >= '17'){
-                        flash::error('ingrese una hora valida');
+                        flash::error('ingrese una hora mayor a la actual');
                         return redirect()->route('babyreservas.create');
                     }
                 }
-                if($reserva->id_horario == 11){
+                if($reserva->id_horario1 == 11){
                     if($hoy['hours'] -3 >= '18'){
-                        flash::error('ingrese una hora valida');
+                        flash::error('ingrese una hora mayor a la actual');
                         return redirect()->route('babyreservas.create');
                     }
                 }
-                if($reserva->id_horario == 12){
+                if($reserva->id_horario1 == 12){
                     if($hoy['hours'] -3 >= '19'){
-                        flash::error('ingrese una hora valida');
+                        flash::error('ingrese una hora mayor a la actual');
                         return redirect()->route('babyreservas.create');
                     }
                 }
-                if($reserva->id_horario == 13){
+                if($reserva->id_horario1 == 13){
                     if($hoy['hours'] -3 >= '20'){
-                        flash::error('ingrese una hora valida');
+                        flash::error('ingrese una hora mayor a la actual');
                         return redirect()->route('babyreservas.create');
                     }
                 }
-                if($reserva->id_horario == 14){
+                if($reserva->id_horario1 == 14){
                     if($hoy['hours'] -3 >= '21'){
-                        flash::error('ingrese una hora valida');
+                        flash::error('ingrese una hora mayor a la actual');
                         return redirect()->route('babyreservas.create');
                     }
                 }
@@ -223,16 +236,117 @@ class BabyReservaController extends Controller
         $problema = false;
         //preguntar si es unica
         foreach($reservas as $reserva){
-            if($reserva->id_horario == $request->id_horario){
-                $problema=true;
-                Flash::error('La reserva ya existe');
-                break;
+            if($reserva->id_horario1 == $request->id_horario1){
+                if($reserva->id_horario2 ==$request->id_horario2){
+                    $problema=true;
+                    Flash::error('La reserva ya existe');
+                    break;
+                }
             }
         }
         if($problema ==false){
             $reserva->id_usuario = $request->id_usuario;
-            $reserva->id_horario = $request->id_horario;
+            $reserva->id_horario1 = $request->id_horario1;
+            $reserva->id_horario2 = $request->id_horario2;
             $reserva->fecha_reserva = $fecha_reserva;
+                     //validador de que el horario fin tiene que ser mayor al horario inicial
+                     if($reserva->id_horario1 == $reserva->id_horario2){
+                        flash::error('La hora fin debe ser superior a la hora inicio');
+                        return redirect()->route('babyreservas.index');
+                    } else{
+                        if($reserva->id_horario1 > $reserva->id_horario2){
+                            flash::error('La hora fin debe ser superior a la hora inicio');
+                            return redirect()->route('babyreservas.index');
+                        }
+                    }
+        
+                    // validador de horarios superiores al que se encuentran
+                    if($fecha_actual == $fecha_reserva){
+                        if($reserva->id_horario1 == 1){
+                            if($hoy['hours'] -3 >= '08'){
+                                flash::error('ingrese una hora mayor a la actual');
+                                return redirect()->route('babyreservas.index');
+                            }
+                        }
+                        if($reserva->id_horario1 == 2){
+                            if($hoy['hours'] -3 >= '09'){
+                                flash::error('ingrese una hora mayor a la actual');
+                                return redirect()->route('babyreservas.index');
+                            }
+                        }
+                        if($reserva->id_horario1 == 3){
+                            if($hoy['hours'] -3 >= '10'){
+                                flash::error('ingrese una hora mayor a la actual');
+                                return redirect()->route('babyreservas.index');
+                            }
+                        }
+                        if($reserva->id_horario1 == 4){
+                            if($hoy['hours'] -3 >= '11'){
+                                flash::error('ingrese una hora mayor a la actual');
+                                return redirect()->route('babyreservas.index');
+                            }
+                        }
+                        if($reserva->id_horario1 == 5){
+                            if($hoy['hours'] -3 >= '12'){
+                                flash::error('ingrese una hora mayor a la actual');
+                                return redirect()->route('babyreservas.index');
+                            }
+                        }
+                        if($reserva->id_horario1 == 6){
+                            if($hoy['hours'] -3 >= '13'){
+                                flash::error('ingrese una hora mayor a la actual');
+                                return redirect()->route('babyreservas.index');
+                            }
+                        }
+                        if($reserva->id_horario1 == 7){
+                            if($hoy['hours'] -3 >= '14'){
+                                flash::error('ingrese una hora mayor a la actual');
+                                return redirect()->route('babyreservas.index');
+                            }
+                        }
+                        if($reserva->id_horario1 == 8){
+                            if($hoy['hours'] -3 >= '15'){
+                                flash::error('ingrese una hora mayor a la actual');
+                                return redirect()->route('babyreservas.index');
+                            }
+                        }
+                        if($reserva->id_horario1 == 9){
+                            if($hoy['hours'] -3 >= '16'){
+                                flash::error('ingrese una hora mayor a la actual');
+                                return redirect()->route('babyreservas.index');
+                            }
+                        }
+                        if($reserva->id_horario1 == 10){
+                            if($hoy['hours'] -3 >= '17'){
+                                flash::error('ingrese una hora mayor a la actual');
+                                return redirect()->route('babyreservas.index');
+                            }
+                        }
+                        if($reserva->id_horario1 == 11){
+                            if($hoy['hours'] -3 >= '18'){
+                                flash::error('ingrese una hora mayor a la actual');
+                                return redirect()->route('babyreservas.index');
+                            }
+                        }
+                        if($reserva->id_horario1 == 12){
+                            if($hoy['hours'] -3 >= '19'){
+                                flash::error('ingrese una hora mayor a la actual');
+                                return redirect()->route('babyreservas.index');
+                            }
+                        }
+                        if($reserva->id_horario1 == 13){
+                            if($hoy['hours'] -3 >= '20'){
+                                flash::error('ingrese una hora mayor a la actual');
+                                return redirect()->route('babyreservas.index');
+                            }
+                        }
+                        if($reserva->id_horario1 == 14){
+                            if($hoy['hours'] -3 >= '21'){
+                                flash::error('ingrese una hora mayor a la actual');
+                                return redirect()->route('babyreservas.index');
+                            }
+                        }
+                    }
             
             $reserva->save();
     

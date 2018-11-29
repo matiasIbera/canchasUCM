@@ -11,7 +11,8 @@ class TenisReserva extends Model
     protected $fillable = [
     	'id',
     	'id_usuario',
-    	'id_horario',
+        'id_horario1',
+        'id_horario2',
     	'fecha_reserva',
     ];
 
@@ -23,6 +24,11 @@ class TenisReserva extends Model
 
     public function horariotenis()
     {
-    	return $this->belongsTo('App\HorarioTenis','id_horario');
+    	return $this->belongsTo('App\HorarioTenis','id_horario1');
+    }
+
+    public function horariotenis2()
+    {
+    	return $this->belongsTo('App\HorarioTenis','id_horario2');
     }
 }

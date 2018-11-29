@@ -11,7 +11,8 @@ class BabyReserva extends Model
     protected $fillable = [
     	'id',
     	'id_usuario',
-    	'id_horario',
+        'id_horario1',
+        'id_horario2',
     	'fecha_reserva',
     ];
 
@@ -23,6 +24,11 @@ class BabyReserva extends Model
 
     public function horariobaby()
     {
-    	return $this->belongsTo('App\HorarioBaby','id_horario');
+    	return $this->belongsTo('App\HorarioBaby','id_horario1');
+    }
+
+    public function horariobaby2()
+    {
+        return $this->belongsTo('App\HorarioBaby','id_horario2');
     }
 }
