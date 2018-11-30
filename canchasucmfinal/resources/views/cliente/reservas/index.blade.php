@@ -37,7 +37,7 @@
         
             <tbody>
                     
-                @foreach($user->reservas as $reserva)
+                @foreach($user->reservas()->orderBy('fecha_reserva','ASC')->get() as $reserva)
                     <tr>
                     <td>{{ $reserva->fecha_reserva }}</td>
                     <td>{{ $reserva->horario->hora }}</td>   
