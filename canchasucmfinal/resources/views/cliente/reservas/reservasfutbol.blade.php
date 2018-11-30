@@ -25,12 +25,12 @@
 
 	            <tbody>
 	                <tr class="table-active">
-	                <th scope="row">#</th>
 	                <th scope="row">Nombre</th>
 	                <th scope="row">Apellido</th>
 	                <th scope="row"> Correo</th>
 	                <td scope="row">Fecha</td>
-	                <td scope="row">Hora</td>
+	                <td scope="row">H. Inicio</td>
+					<td scope="row">H. Fin</td>
 	                </tr>
 	                    
 	            </tbody>
@@ -39,12 +39,12 @@
 	                    
 	                @foreach($reservas as $reserva)
 	                    <tr>
-	                    <th scope="row">{{ $reserva->id }}</th>
 	                    <th scope="row">{{$reserva->user->name}}</th>
 	                    <th scope="row">{{$reserva->user->apellido}}</th>
 	                    <th scope="row">{{$reserva->user->email}}</th>
 	                    <td>{{ $reserva->fecha_reserva }}</td>
-	                    <td>{{ $reserva->horario->hora }}</td>               
+	                    <td>{{ $reserva->horario->hora }}</td>
+						<td>{{ $reserva->horario2->hora }}</td>               
 	                    </tr>      
 	                @endforeach
 

@@ -27,9 +27,9 @@
 
             <tbody>
                 <tr class="table-active">
-                <th scope="row">#</th>
                 <td scope="row">Fecha</td>
-                <td scope="row">Hora</td>
+                <td scope="row">Hora Inicio</td>
+                <td scope="row">Hora Fin</td>
                 </tr>
                     
             </tbody>
@@ -38,9 +38,9 @@
                     
                 @foreach($user->reservabs as $reservab)
                     <tr>
-                    <th scope="row">{{ $reservab->id }}</th>
                     <td>{{ $reservab->fecha_reserva }}</td>
-                    <td>{{ $reservab->horariobaby->hora }}</td>               
+                    <td>{{ $reservab->horariobaby->hora }}</td>
+                    <td>{{ $reservab->horariobaby2->hora }}</td>               
                     </tr>      
                 @endforeach
 
