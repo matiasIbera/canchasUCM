@@ -67,9 +67,15 @@
                                         {{ __('Vista de Administrador') }}
                                     </a>
                                     @endif
+                                    @if(Auth::user()->type=="admin")
                                     <a class="dropdown-item" href="{{ route('usuarios.edit', $id=auth::id()) }}"> <!-- esta funcion permite al usuario ir a la vista para editar los datos de su perfil -->
                                         {{ __('Editar Perfil') }}
                                     </a>
+                                    @else
+                                    <a class="dropdown-item" href="{{ route('editarcliente.edit', $id=auth::id()) }}"> <!-- esta funcion permite al usuario ir a la vista para editar los datos de su perfil -->
+                                        {{ __('Editar Perfil') }}
+                                    </a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         
                                         onclick="event.preventDefault(); return confirm('¿Quiere cerrar sesión?')&&document.getElementById('logout-form').submit();">
