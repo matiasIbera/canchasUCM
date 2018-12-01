@@ -162,6 +162,9 @@ Route::group(['prefix' =>'coordinadorB'],function(){
 	Route::get('coordinadorB/otrafechab','CoordinadorBController@mostrar_fecha')->name('coordinadorB.otrafechab');
 
 });
+
+Route::resource('editarcliente','EditClienteController'); //ruta para editar datos de usuario tipo cliente
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

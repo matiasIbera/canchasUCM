@@ -44,7 +44,7 @@
                                         {{ __('Editar Perfil') }}
                             </a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault(); return confirm('seguro que quieres eliminar este usuario?')&&document.getElementById('logout-form').submit();">
+                               onclick="event.preventDefault(); return confirm('¿Quiere cerrar sesión?')&&document.getElementById('logout-form').submit();">
                                 {{ __('Cerrar Sesion') }}
                             </a>
 
